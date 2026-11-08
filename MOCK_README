@@ -1,0 +1,74 @@
+# Mock Assessment: Book Manager API
+
+**Time limit: 40 minutes. Set a timer before you start.**
+AI tools and Google are allowed. You must be able to explain every line afterwards.
+
+## Task
+Build a REST API for managing books, using Django and Django REST Framework.
+
+## Setup (do this yourself, no copy-paste of old code)
+1. Create a new folder `book_manager`, open it in VS Code.
+2. Create a virtual environment and install: django, djangorestframework, django-cors-headers.
+3. Create the project `config` and an app `books`.
+4. Use SQLite.
+
+## Requirements
+
+### 1. Model `Book`
+| Field | Type | Rules |
+|---|---|---|
+| title | text, max 150 | required |
+| author | text, max 100 | required |
+| isbn | text, max 13 | required, unique |
+| price | decimal | must be greater than 0 |
+| published_year | integer | between 1900 and 2026 |
+| available | boolean | default True |
+| created_at | datetime | set automatically |
+
+### 2. Endpoints (all under `/api/`)
+- `GET /api/books/` list all books (newest first)
+- `POST /api/books/` create a book
+- `GET /api/books/<id>/` get one book
+- `PUT/PATCH /api/books/<id>/` update a book
+- `DELETE /api/books/<id>/` delete a book
+
+### 3. Features
+- Search by title or author: `/api/books/?search=python`
+- Custom endpoint: `GET /api/books/available/` returns only books where available is True
+- Validation errors must return status 400 with a clear message
+
+### 4. Frontend (do this if time remains)
+Create `index.html` that:
+- shows all books in a table (use `fetch()`)
+- has a form to add a new book
+- has a Delete button on each row
+
+### 5. Submission
+- Add a `.gitignore` (venv, db.sqlite3, __pycache__)
+- Add a short `README.md` explaining how to run the project
+- Commit and push to a new GitHub repository named `book-manager`
+
+## Final check (last 4 minutes)
+- [ ] `python manage.py makemigrations` and `migrate` run with no errors
+- [ ] `python manage.py runserver` starts cleanly
+- [ ] Every endpoint above works when tested in the browser
+- [ ] Code is pushed to GitHub and visible online
+
+## Suggested time plan
+| Minutes | Work |
+|---|---|
+| 0-5 | Read this README fully, make notes |
+| 5-10 | Venv, install, project, app, settings |
+| 10-25 | Model, serializer, viewset, URLs, migrate, test |
+| 25-33 | Search, custom endpoint, validation |
+| 33-37 | Frontend (if time) |
+| 37-40 | Final check, .gitignore, commit, push |
+
+## Interview questions to prepare after finishing
+1. Why did you use a ViewSet instead of APIView?
+2. What does `makemigrations` do versus `migrate`?
+3. How does the router create the URLs?
+4. Where is the price validation, and how does it work?
+5. What is CORS and why did you enable it?
+6. What happens if I send a duplicate ISBN?
+7. Explain the `@action` you wrote.
